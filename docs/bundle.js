@@ -9940,7 +9940,7 @@ function combineDoms(componentArray) {
     }, componentArray.map(function (c) { return c.dom; }));
 }
 var RaisedButton = function (sources) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */])(__assign({}, sources, { children$: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_most__["j" /* just */])(['Raised']) }));
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */])(__assign({}, sources, { styles$: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_most__["j" /* just */])([__WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */].raised, __WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */].primary]), children$: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_most__["j" /* just */])(['Raised']) }));
 };
 var FlatButton = function (sources) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */])(__assign({}, sources, { styles$: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_most__["j" /* just */])([__WEBPACK_IMPORTED_MODULE_2__src_components__["a" /* Button */].flat]), children$: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_most__["j" /* just */])(['Flat']) }));
@@ -10101,7 +10101,7 @@ function Button(sources) {
     Button.blue = __WEBPACK_IMPORTED_MODULE_3__styles__["j" /* blue */];
 })(Button || (Button = {}));
 function view(model) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__motorcycle_dom__["a" /* button */])(__WEBPACK_IMPORTED_MODULE_3__styles__["a" /* button */] + (model.styles.join('') || __WEBPACK_IMPORTED_MODULE_3__styles__["b" /* raised */] + __WEBPACK_IMPORTED_MODULE_3__styles__["d" /* primary */]), model.data, model.children);
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__motorcycle_dom__["a" /* button */])(__WEBPACK_IMPORTED_MODULE_3__styles__["a" /* button */] + (model.styles.join('') || __WEBPACK_IMPORTED_MODULE_3__styles__["b" /* raised */]), model.data, model.children);
 }
 
 
