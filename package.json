@@ -1,0 +1,77 @@
+{
+  "name": "@motorcycle/material",
+  "description": "Material Design Components or Motorcycle.js",
+  "version": "0.0.0",
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/motorcyclejs/material/issues"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "node ./node_modules/.bin/validate-commit-msg"
+    }
+  },
+  "dependencies": {
+    "@motorcycle/dom": "^6.0.0",
+    "csstips": "0.0.3",
+    "csx": "^8.0.4",
+    "most": "^1.1.1",
+    "most-combineobj": "^1.0.0",
+    "typescript": "^2.1.4",
+    "typestyle": "^0.18.2"
+  },
+  "devDependencies": {
+    "@most/hold": "^1.4.3",
+    "@motorcycle/core": "^1.6.0",
+    "@motorcycle/router": "^4.0.0",
+    "@motorcycle/tslint": "^1.2.0",
+    "@types/mocha": "^2.2.33",
+    "@types/node": "0.0.2",
+    "commitizen": "^2.8.6",
+    "conventional-changelog": "^1.1.0",
+    "ghooks": "^1.3.2",
+    "mocha": "^3.2.0",
+    "ts-loader": "^1.3.1",
+    "ts-node": "^1.7.2",
+    "tslint": "^4.0.2",
+    "typescript": "^2.1.4",
+    "validate-commit-msg": "^2.8.2",
+    "webpack": "^2.1.0-beta.27",
+    "webpack-dev-server": "^2.1.0-beta.12"
+  },
+  "homepage": "https://github.com/motorcyclejs/material#readme",
+  "jsnext:main": "lib/es2015/index.js",
+  "keywords": [
+    "components",
+    "design",
+    "functional",
+    "material",
+    "most",
+    "motorcyclejs",
+    "reactive"
+  ],
+  "license": "MIT",
+  "main": "lib/commonjs",
+  "module": "lib/es2015/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motorcyclejs/material.git"
+  },
+  "scripts": {
+    "build": "npm run build:es2015 && npm run build:commonjs",
+    "build:commonjs": "tsc -P tsconfig.commonjs.json",
+    "build:es2015": "tsc -P tsconfig.json",
+    "changelog": "conventional-changelog --infile CHANGELOG.md --same-file --release-count 0 --preset angular",
+    "commit": "git-cz",
+    "postchangelog": "git add CHANGELOG.md && git commit -m 'docs(CHANGELOG): append to changelog'",
+    "postversion": "npm run changelog && git push origin master --tags && npm publish",
+    "preversion": "npm run build",
+    "release:major": "npm version major -m 'chore(package): v%s'",
+    "release:minor": "npm version minor -m 'chore(package): v%s'",
+    "start": "webpack-dev-server -w",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "tslint src/**/*.ts src/*.ts",
+    "test:unit": "TS_NODE_PROJECT=test/tsconfig.json mocha -r ts-node/register test/*.ts"
+  },
+  "typings": "lib/es2015/index.d.ts"
+}
