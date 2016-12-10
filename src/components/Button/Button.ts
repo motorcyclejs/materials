@@ -35,7 +35,7 @@ export namespace Button {
 
 function view(model: ButtonModel): VNode {
   return button(
-    styles.button + (model.styles.join('') || styles.raised + styles.primary),
+    styles.button + (model.styles.join('') || styles.raised),
     model.data,
     model.children,
   );

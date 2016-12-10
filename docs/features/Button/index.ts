@@ -41,7 +41,7 @@ function combineDoms(componentArray: Array<{ dom: Stream<VNode> }>): Stream<VNod
 }
 
 const RaisedButton = (sources: { dom: DomSource }) =>
-  Button({...sources, children$: just(['Raised']) });
+  Button({...sources, styles$: just([Button.raised, Button.primary]) ,children$: just(['Raised']) });
 
 const FlatButton = (sources: { dom: DomSource }) =>
   Button({ ...sources, styles$: just([Button.flat]) , children$: just(['Flat'])});
