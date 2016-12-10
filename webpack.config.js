@@ -8,7 +8,7 @@ const config = {
   ],
 
   output: {
-    path: path.resolve('./docs'),
+    path: path.resolve('./'),
     filename: 'bundle.js',
     publicPath: 'http://localhost:8080/',
   },
