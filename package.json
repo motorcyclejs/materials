@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@cycle/isolate": "^1.4.0",
-    "@motorcycle/dom": "^6.0.0",
+    "@motorcycle/dom": "^6.4.0",
     "csstips": "0.0.3",
     "csx": "^8.0.4",
     "most": "^1.1.1",
