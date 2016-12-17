@@ -1,13 +1,12 @@
-import { run } from '@motorcycle/core';
+import { CatalogApp } from './CatalogApp';
 import { makeDomDriver } from '@motorcycle/dom';
 import { routerDriver } from '@motorcycle/router';
-
-import { App } from './App';
+import { run } from '@motorcycle/core';
 
 const drivers =
   {
-    dom: makeDomDriver(document.querySelector('#app') as HTMLElement),
+    dom: makeDomDriver(document.querySelector('#app-container') as HTMLElement),
     router: routerDriver,
   };
 
-run(App, drivers);
+run(CatalogApp, drivers);
