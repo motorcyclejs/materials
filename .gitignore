@@ -40,3 +40,6 @@ jspm_packages
 # generated files
 lib
 .tmp
+
+# Editors
+.vscode/

@@ -1,24 +1,29 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <title>Motorcycle.js Material</title>
+    <title>Motorcycle.js Components</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <!-- TODO: TypeStyle load fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,600" rel="stylesheet">
+
     <style>
       body {
         margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.5;
         min-height: 100vh;
       }
     </style>
   </head>
   <body>
-    <div id="app">
-      <h2>Motorcycle.js Material</h2>
+    <div id="app-container">
+      <h2>Motorcycle.js Components</h2>
       <h4>Loading...</h4>
     </div>
     <script>window.performance && performance.mark && performance.mark('index.html')</script>
+    <!-- We also require docs/bundle.js to be able to host on github. -->
     <script src="docs/bundle.js"></script>
     <script src="bundle.js"></script>
   </body>
