@@ -1,4 +1,4 @@
-import { DomSource, VNode } from '@motorcycle/dom';
+import { DomSource, VNode, VNodeData } from '@motorcycle/dom';
 
 import { Stream } from 'most';
 
@@ -10,9 +10,9 @@ export interface DomSinks extends Sinks {
   dom: DomSink;
 }
 
-export type DomSink = VNode$;
+export type DomSink = ViewStream;
 
-export type VNode$ = Stream<VNode>;
+export type ViewStream = Stream<VNode>;
 
 export type Source<T> =
   Stream<T> |
@@ -28,4 +28,24 @@ export interface DomSources extends Sources {
   dom: DomSource;
 }
 
+export interface Model {
+  styles: Styles;
+  data: VNodeData;
+  children: Children;
+}
+
+export type EventStream = Stream<Event>;
+
 export type CssClassSelector = string;
+
+export type StylesStream = Stream<Styles>;
+
+export type Styles = Array<Style>;
+
+export type Style = string;
+
+export type DataStream = Stream<VNodeData>;
+
+export type ChildrenStream = Stream<Children>;
+
+export type Children = Array<VNode | string | null>;

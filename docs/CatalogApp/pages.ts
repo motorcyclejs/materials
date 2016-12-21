@@ -1,6 +1,6 @@
 import { DefineReturn, RouteDefinitions } from '@motorcycle/router';
+import { PaperButtonPage, PaperRipplePage } from '../pages';
 
-import { ButtonPage } from '../pages/ButtonPage';
 import { CatalogAppSources } from './';
 import { DefaultSinks } from '../types';
 import { Stream } from 'most';
@@ -10,7 +10,8 @@ export function pages(sources: CatalogAppSources): Stream<DefaultSinks> {
 
   const routes: RouteDefinitions =
     {
-      '/paper-button': ButtonPage,
+      '/paper-button': PaperButtonPage,
+      '/paper-ripple': PaperRipplePage,
     };
 
   const match$: Stream<DefineReturn> =

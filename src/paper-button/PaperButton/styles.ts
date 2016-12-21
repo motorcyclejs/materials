@@ -23,6 +23,7 @@ export namespace PaperButtonStyles {
         `transparent`,
       ],
       font: `inherit`,
+      lineHeight: `normal`,
       textTransform: 'uppercase',
       outline: 0,
       borderRadius: `3px`,

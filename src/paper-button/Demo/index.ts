@@ -11,17 +11,15 @@ import { PaperButton } from '../PaperButton';
 import { combineObj } from 'most-combineobj';
 import isolate from '@cycle/isolate';
 
-export interface DemoSinks extends DomSinks { }
-
-export interface DemoSources extends DomSources { }
-
 export interface DemoModel {
   paperButtonLink: VNode;
   paperButtonRaised: VNode;
 }
 
-export function Demo(sources: DemoSources): DemoSinks {
-  const paperButtonLink = isolate(PaperButton)({ ...sources, children$: just([`link`]) }).dom;
+export function Demo(sources: DomSources): DomSinks {
+  const paperButtonLink =
+    isolate(PaperButton)({ ...sources, children$: just([`link`]) }).dom;
+
   const paperButtonRaised =
     isolate(PaperButton)({
       ...sources,

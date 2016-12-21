@@ -1,18 +1,14 @@
 import { DefaultSinks, DefaultSources } from '../../types';
-import { Stream, just, never } from 'most';
+import { Stream, just, map, never } from 'most';
 import { VNode, div } from '@motorcycle/dom';
 
 import { Demo } from '../../../src/paper-button';
 
-export interface ButtonPageSinks extends DefaultSinks { }
-
-export interface ButtonPageSources extends DefaultSources { }
-
-export function ButtonPage(sources: ButtonPageSources): ButtonPageSinks {
+export function PaperButtonPage(sources: DefaultSources): DefaultSinks {
   const demo = Demo(sources);
 
   return {
-    dom: demo.dom.map(view),
+    dom: map(view, demo.dom),
     router: never(),
   }
 }

@@ -1,4 +1,13 @@
-import { DomSinks, DomSources } from '../../types';
+import {
+  Children,
+  ChildrenStream,
+  DataStream,
+  DomSinks,
+  DomSources,
+  Model,
+  Styles,
+  StylesStream,
+} from '../../types';
 import { VNode, VNodeData } from '@motorcycle/dom';
 
 import { Stream } from 'most';
@@ -18,21 +27,6 @@ export interface PaperButtonProps {
   raised?: boolean;
 }
 
-export type StylesStream = Stream<Styles>;
-
-export type Styles = Array<Style>;
-
-export type DataStream = Stream<VNodeData>;
-
-export type ChildrenStream = Stream<Children>;
-
-export type Children = Array<VNode | string | null>;
-
-export interface PaperButtonModel {
-  styles: Styles;
-  data: VNodeData;
-  children: Children;
+export interface PaperButtonModel extends Model {
   elevation: number;
 }
-
-export type Style = string;
