@@ -16,7 +16,7 @@ import {
   PaperButtonStyles,
 } from './';
 import { PaperMaterialSharedStyles, elevations } from '../../paper-material';
-import { PaperRipple, PaperRippleSinks } from '../../paper-ripple';
+import { PaperRipple } from '../../paper-ripple';
 import {
   Stream,
   combineArray,
@@ -90,7 +90,7 @@ export function PaperButton(sources: PaperButtonSources): PaperButtonSinks {
       [ raisedElevation$, pressedElevation$ ],
     );
 
-  const paperRippleView$: ViewStream = PaperRipple(sources).dom
+  const paperRippleView$: ViewStream = PaperRipple(sources).dom;
 
   const styles$: StylesStream = sources.styles$ || just([]);
 

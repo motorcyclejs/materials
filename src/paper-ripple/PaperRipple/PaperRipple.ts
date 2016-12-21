@@ -6,7 +6,6 @@ import {
   combineArray,
   constant,
   filter,
-  just,
   map,
   merge,
   scan,
@@ -46,7 +45,7 @@ export function PaperRipple(sources: PaperRippleSources): PaperRippleSinks {
     scan(
       function (ripples, _) {
         const ripple: RippleSinks =
-          Ripple({ ...sources, props$: just({ parent: paperRipple }) });
+          Ripple(sources);
 
         return ripples.concat(ripple);
       },
@@ -65,8 +64,8 @@ export function PaperRipple(sources: PaperRippleSources): PaperRippleSinks {
               ripples.map((ripple: RippleSinks) => ripple.dom),
             ),
           ripples$,
-        )
-      )
+        ),
+      ),
     );
 
   return {

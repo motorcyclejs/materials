@@ -1,26 +1,21 @@
-import { DataStream, ViewStream } from '../../../types';
-import { DomSource, VNode, div, elements } from '@motorcycle/dom';
+import { ViewStream } from '../../../types';
+import { VNode, div, elements } from '@motorcycle/dom';
 import {
-  RippleModel,
   RippleModelStream,
-  RippleProps,
   RippleSinks,
   RippleSources,
 } from './';
-import { Stream, just, map, switchLatest, take } from 'most';
+import { map, skipRepeats, multicast } from 'most';
 
 import { PaperRippleStyles } from '../';
 
 export function Ripple(sources: RippleSources): RippleSinks {
-  const { props$ } = sources;
-
-  const parent$: Stream<DomSource> = map((props: RippleProps) => props.parent, props$);
-
-  const parentElement$ = take(1, switchLatest(map(elements, parent$)));
+  const parentElement$ =
+    skipRepeats(map(firstElement, elements(sources.dom)));
 
   const model$: RippleModelStream = parentElement$;
 
-  const view$: ViewStream = map(view, model$);
+  const view$: ViewStream = multicast(map(view, model$));
 
   return {
     dom: view$,
@@ -28,11 +23,15 @@ export function Ripple(sources: RippleSources): RippleSinks {
 }
 
 function view(model: any): VNode {
-  console.log(window.getComputedStyle(model[0]).color);
+  console.log(window.getComputedStyle(model).color);
   const waveContainer: VNode =
     div(PaperRippleStyles.waveContainer, [
-      div(PaperRippleStyles.wave)
+      div(PaperRippleStyles.wave),
     ]);
 
   return waveContainer;
+}
+
+function firstElement(htmlElements: HTMLElement[]): HTMLElement {
+  return htmlElements[0];
 }
