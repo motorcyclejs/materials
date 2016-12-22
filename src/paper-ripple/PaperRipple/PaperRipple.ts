@@ -1,89 +1,32 @@
-import { DomSource, VNode, div, events, query } from '@motorcycle/dom';
-import { PaperRippleSinks, PaperRippleSources, PaperRippleStyles } from './';
-import { Ripple, RippleSinks } from './Ripple';
-import {
-  Stream,
-  combineArray,
-  constant,
-  filter,
-  map,
-  merge,
-  scan,
-  since,
-  startWith,
-  switchLatest,
-} from 'most';
-
-import { EventStream } from '../../types';
+import { Stream, combineArray, map, startWith, switchLatest, just } from 'most';
+import { VNode, query } from '@motorcycle/dom';
+import { DomSinks } from '../../types';
+import { PaperRippleSinks, PaperRippleSources } from './types';
+import { PaperRippleStyles } from './styles';
+import { pressed } from '../../interactions';
+import { ripples } from './ripples';
+import { view } from './view';
 
 export function PaperRipple(sources: PaperRippleSources): PaperRippleSinks {
-  const { dom } = sources;
-
-  const paperRipple: DomSource = query(PaperRippleStyles.host, dom);
-
-  const mouseDown$: EventStream = events('mousedown', paperRipple);
-
-  const touchStart$: EventStream = events('touchstart', paperRipple);
-
-  const start$: EventStream = merge(mouseDown$, touchStart$);
-
-  const document: DomSource = query(`document`, dom);
-
-  const mouseUp$: EventStream = events('mouseup', document);
-
-  const touchEnd$: EventStream = events('touchend', document);
-
-  const end$: EventStream = merge(mouseUp$, touchEnd$);
-
-  const pressed$: Stream<boolean> =
-    startWith(false, merge(
-      constant(true, start$),
-      constant(false, since(start$, end$)),
-    ));
-
-  const ripples$: Stream<Array<RippleSinks>> =
-    scan(
-      function (ripples, _) {
-        const ripple: RippleSinks =
-          Ripple(sources);
-
-        return ripples.concat(ripple);
-      },
-      [] as Array<RippleSinks>,
-      filter(Boolean, pressed$),
-    );
+  const pressed$ = pressed(query(PaperRippleStyles.host, sources.dom));
+  const ripples$ = ripples(sources, pressed$);
 
   const rippleViews$: Stream<Array<VNode>> =
-    startWith(
-      [],
-      switchLatest(
-        map(
-          (ripples: Array<RippleSinks>) =>
-            combineArray(
-              Array,
-              ripples.map((ripple: RippleSinks) => ripple.dom),
-            ),
-          ripples$,
-        ),
-      ),
-    );
+    startWith([], combineViewSinks(ripples$));
 
   return {
     dom: map(view, rippleViews$),
   };
 }
 
-function view(rippleViews: Array<VNode>): VNode {
-  return div(
-    PaperRippleStyles.host,
-    [
-      div(
-        PaperRippleStyles.background,
-      ),
-      div(
-        PaperRippleStyles.waves,
-        rippleViews,
-      ),
-    ],
-  );
+function combineViewSinks<Sinks extends DomSinks>(
+  sinks$: Stream<Array<Sinks>>): Stream<Array<VNode>>
+{
+  return switchLatest(map(combineViews, sinks$));
+}
+
+function combineViews<Sinks extends DomSinks>(views: Array<Sinks>): Stream<Array<VNode>> {
+  if (views.length === 0) return just([null]) as any as Stream<Array<VNode>>;
+
+  return combineArray(Array, views.map(view => view.dom));
 }

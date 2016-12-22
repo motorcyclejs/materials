@@ -28,6 +28,7 @@ import {
   since,
   startWith,
 } from 'most';
+import { pressed } from '../../interactions';
 
 import { combineObj } from 'most-combineobj';
 
@@ -46,25 +47,7 @@ export function PaperButton(sources: PaperButtonSources): PaperButtonSinks {
 
   const button: DomSource = query(PaperButtonStyles.host, dom);
 
-  const mouseDown$: EventStream = events('mousedown', button);
-
-  const touchStart$: EventStream = events('touchstart', button);
-
-  const start$: EventStream = merge(mouseDown$, touchStart$);
-
-  const document: DomSource = query(`document`, dom);
-
-  const mouseUp$: EventStream = events('mouseup', document);
-
-  const touchEnd$: EventStream = events('touchend', document);
-
-  const end$: EventStream = merge(mouseUp$, touchEnd$);
-
-  const down$: Stream<boolean> = constant(true, start$);
-
-  const up$: Stream<boolean> = constant(false, since(start$, end$));
-
-  const pressed$: Stream<boolean> = startWith(false, merge(down$, up$));
+  const pressed$ = pressed(button);
 
   const raised$: Stream<boolean> =
     map(
@@ -86,8 +69,8 @@ export function PaperButton(sources: PaperButtonSources): PaperButtonSinks {
 
   const elevation$: Stream<number> =
     combineArray(
-    (raised: number, pressed: number) => raised * pressed,
-      [ raisedElevation$, pressedElevation$ ],
+      (raised: number, pressed: number) => raised * pressed,
+      [raisedElevation$, pressedElevation$],
     );
 
   const paperRippleView$: ViewStream = PaperRipple(sources).dom;
